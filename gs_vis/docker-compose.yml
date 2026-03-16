@@ -15,14 +15,23 @@ services:
       MODEL_SRC: /workspace/da3/output_gs/gs_ply/0000.ply
       GPU_DEVICE: "${GPU_DEVICE:-0}"
       VISIONARY_PORT: 3000
-      VNC_PORT: 5901
-      NOVNC_PORT: 6080
+      DISPLAY_SIZEW: 1920
+      DISPLAY_SIZEH: 1080
+      DISPLAY_REFRESH: 60
+      DISPLAY_DPI: 96
+      DISPLAY_CDEPTH: 24
+      KASMVNC_ENABLE: "true"
+      SELKIES_ENCODER: nvh264enc
       NVIDIA_VISIBLE_DEVICES: "${GPU_DEVICE:-0}"
       NVIDIA_DRIVER_CAPABILITIES: all
+      PASSWD: "${PASSWD:-changeme}"
+      USER_PASSWORD: "${PASSWD:-changeme}"
+      USER_LOCALES: en_US.UTF-8
+      TZ: Asia/Shanghai
+      VGL_DISPLAY: "${VGL_DISPLAY:-}"
     ports:
+      - "8080:8080"
       - "3000:3000"
-      - "5901:5901"
-      - "6080:6080"
     volumes:
       - ..:/workspace
     working_dir: /workspace

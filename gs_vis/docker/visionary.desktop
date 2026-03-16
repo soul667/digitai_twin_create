@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Visionary Autostart
+Exec=/opt/visionary/autostart-visionary.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true

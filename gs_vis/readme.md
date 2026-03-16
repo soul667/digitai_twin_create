@@ -33,9 +33,9 @@ MODEL_SRC=/abs/path/to/your_model.ply ./gs_vis/run_visionary.sh
 
 Then click `选择文件` or drag the `.ply` into the official Visionary page.
 
-## Docker VNC mode
+## Docker Desktop Mode
 
-To run Visionary inside a Docker desktop with VNC/noVNC and one GPU mounted:
+To run Visionary inside a Selkies GLX remote desktop with one GPU mounted:
 
 ```shell
 ./gs_vis/run_visionary_vnc.sh
@@ -43,11 +43,10 @@ To run Visionary inside a Docker desktop with VNC/noVNC and one GPU mounted:
 
 This starts:
 
+- Selkies remote desktop on `http://localhost:8080`
 - Visionary dev server on `http://localhost:3000`
-- VNC on `localhost:5901`
-- noVNC on `http://localhost:6080/vnc.html`
 
-The container will open Chromium inside the virtual desktop and load:
+The container will open Chrome inside the remote desktop and load:
 
 ```shell
 http://127.0.0.1:3000/demo/simple/index.html
@@ -71,6 +70,12 @@ To choose which single GPU is mounted into the container:
 
 ```shell
 GPU_DEVICE=1 ./gs_vis/run_visionary_vnc.sh
+```
+
+To set the Selkies login password:
+
+```shell
+PASSWD=your_password ./gs_vis/run_visionary_vnc.sh
 ```
 
 ## GitHub image publishing

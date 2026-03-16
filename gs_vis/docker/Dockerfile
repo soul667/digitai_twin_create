@@ -1,23 +1,16 @@
-FROM nvidia/cuda:13.1.1-cudnn-devel-ubuntu22.04
+FROM ghcr.io/selkies-project/nvidia-glx-desktop:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV VISIONARY_PORT=3000
+ENV CHROME_FLAGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --enable-features=Vulkan,UnsafeWebGPU --use-vulkan --enable-unsafe-webgpu --ozone-platform=x11"
+
+USER root
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
     git \
     gnupg \
-    unzip \
-    x11vnc \
-    xvfb \
-    fluxbox \
-    dbus-x11 \
-    xterm \
-    x11-xserver-utils \
-    xserver-xorg-core \
-    xserver-xorg-video-dummy \
-    novnc \
-    websockify \
     python3 \
     python3-pip \
     libnss3 \
@@ -27,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     libgtk-3-0 \
     libxshmfence1 \
     libglu1-mesa \
-    mesa-utils \
+    xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /etc/apt/keyrings && \
@@ -38,19 +31,17 @@ RUN mkdir -p /etc/apt/keyrings && \
 
 RUN curl -fsSL https://bun.sh/install | bash
 
-ENV PATH="/root/.bun/bin:${PATH}"
-ENV DISPLAY=:1
-ENV VNC_PORT=5901
-ENV NOVNC_PORT=6080
-ENV VISIONARY_PORT=3000
-ENV CHROME_FLAGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --disable-software-rasterizer --ignore-gpu-blocklist --enable-features=Vulkan,UnsafeWebGPU --use-vulkan --enable-unsafe-webgpu --ozone-platform=x11"
+RUN install -m 0755 /root/.bun/bin/bun /usr/local/bin/bun
+
+ENV PATH="/usr/local/bin:${PATH}"
 
 WORKDIR /workspace
 
-COPY xorg-dummy.conf /etc/X11/xorg.conf
-COPY start.sh /opt/visionary/start.sh
-RUN chmod +x /opt/visionary/start.sh
+COPY start.sh /opt/visionary/autostart-visionary.sh
+COPY visionary.desktop /etc/xdg/autostart/visionary.desktop
+RUN chmod +x /opt/visionary/autostart-visionary.sh && \
+    sed -i 's|Exec=.*|Exec=/opt/visionary/autostart-visionary.sh|' /etc/xdg/autostart/visionary.desktop
 
-EXPOSE 3000 5901 6080
+EXPOSE 8080 3000
 
-CMD ["/opt/visionary/start.sh"]
+USER ubuntu
