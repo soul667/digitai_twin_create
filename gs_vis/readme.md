@@ -3,6 +3,7 @@ curl -fsSL https://bun.com/install | bash
 ```
 
 `gs_vis/visionary/` is reserved for the Visionary viewer submodule.
+The wrapper scripts in `gs_vis/` do not write extra files into the submodule.
 
 ## Local 3DGS viewer
 
@@ -18,16 +19,10 @@ By default it loads:
 ./da3/output_gs/gs_ply/0000.ply
 ```
 
-and copies it to:
-
-```shell
-./gs_vis/visionary/models/current_output.ply
-```
-
 Then open:
 
 ```shell
-http://localhost:3000/demo/simple/current_output.html
+http://localhost:3000/demo/simple/index.html
 ```
 
 To visualize another PLY:
@@ -35,6 +30,8 @@ To visualize another PLY:
 ```shell
 MODEL_SRC=/abs/path/to/your_model.ply ./gs_vis/run_visionary.sh
 ```
+
+Then click `选择文件` or drag the `.ply` into the official Visionary page.
 
 ## Docker VNC mode
 
@@ -53,7 +50,7 @@ This starts:
 The container will open Chromium inside the virtual desktop and load:
 
 ```shell
-http://127.0.0.1:3000/demo/simple/current_output.html
+http://127.0.0.1:3000/demo/simple/index.html
 ```
 
 To visualize another PLY:
@@ -61,6 +58,14 @@ To visualize another PLY:
 ```shell
 MODEL_SRC=/abs/path/to/your_model.ply ./gs_vis/run_visionary_vnc.sh
 ```
+
+Inside the VNC browser, load the model from:
+
+```shell
+/workspace/da3/output_gs/gs_ply/0000.ply
+```
+
+or the path provided by `MODEL_SRC`.
 
 To choose which single GPU is mounted into the container:
 

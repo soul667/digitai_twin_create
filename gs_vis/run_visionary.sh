@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
-export CUDA_VISIBLE_DEVICES=3
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VISIONARY_DIR="${ROOT_DIR}/visionary"
 MODEL_SRC="${MODEL_SRC:-${ROOT_DIR}/../da3/output_gs/gs_ply/0000.ply}"
-MODEL_DST="${VISIONARY_DIR}/models/current_output.ply"
 HOST="${HOST:-0.0.0.0}"
 PORT="${PORT:-3000}"
 
@@ -20,18 +19,16 @@ fi
 
 if [[ ! -d "${VISIONARY_DIR}/node_modules" ]]; then
   echo "Installing Visionary dependencies with bun..."
-  (cd "${VISIONARY_DIR}" && /home/axgu/.bun/bin/bun install)
+  (cd "${VISIONARY_DIR}" && /home/axgu/.bun/bin/bun install --no-save)
 fi
 
-mkdir -p "${VISIONARY_DIR}/models"
-cp -f "${MODEL_SRC}" "${MODEL_DST}"
-
-echo "Synced GS model:"
-echo "  source: ${MODEL_SRC}"
-echo "  target: ${MODEL_DST}"
+echo "3DGS model:"
+echo "  ${MODEL_SRC}"
 echo
 echo "Open after startup:"
-echo "  http://localhost:${PORT}/demo/simple/current_output.html"
+echo "  http://localhost:${PORT}/demo/simple/index.html"
+echo
+echo "Then click '选择文件' or drag the model into the page."
 echo
 
 cd "${VISIONARY_DIR}"
