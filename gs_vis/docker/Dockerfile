@@ -1,9 +1,13 @@
 FROM ghcr.io/selkies-project/nvidia-glx-desktop:22.04
 
+ARG NVIDIA_DRIVER_VERSION=575.64.03
+ARG NVIDIA_DRIVER_ARCH=x86_64
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VISIONARY_PORT=3000
 ENV CHROME_FLAGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --enable-features=Vulkan,UnsafeWebGPU --use-vulkan --enable-unsafe-webgpu --ozone-platform=x11"
 ENV BUN_INSTALL=/opt/bun
+ENV NVIDIA_DRIVER_VERSION=${NVIDIA_DRIVER_VERSION}
 
 USER root
 
@@ -29,6 +33,11 @@ RUN mkdir -p /etc/apt/keyrings && \
     echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL -o "/tmp/NVIDIA-Linux-${NVIDIA_DRIVER_ARCH}-${NVIDIA_DRIVER_VERSION}.run" \
+      "https://international.download.nvidia.com/XFree86/Linux-${NVIDIA_DRIVER_ARCH}/${NVIDIA_DRIVER_VERSION}/NVIDIA-Linux-${NVIDIA_DRIVER_ARCH}-${NVIDIA_DRIVER_VERSION}.run" || \
+    curl -fsSL -o "/tmp/NVIDIA-Linux-${NVIDIA_DRIVER_ARCH}-${NVIDIA_DRIVER_VERSION}.run" \
+      "https://international.download.nvidia.com/tesla/${NVIDIA_DRIVER_VERSION}/NVIDIA-Linux-${NVIDIA_DRIVER_ARCH}-${NVIDIA_DRIVER_VERSION}.run"
 
 RUN curl -fsSL https://bun.sh/install | bash
 

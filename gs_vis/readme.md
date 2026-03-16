@@ -78,6 +78,12 @@ To set the Selkies login password:
 PASSWD=your_password ./gs_vis/run_visionary_vnc.sh
 ```
 
+If the host NVIDIA driver version differs from the default baked image version, pass it explicitly when building/running:
+
+```shell
+NVIDIA_DRIVER_VERSION=575.64.03 ./gs_vis/run_visionary_vnc.sh
+```
+
 ## GitHub image publishing
 
 The workflow [publish-visionary-vnc.yml](/data2/axgu/code/digitai_twin_create/.github/workflows/publish-visionary-vnc.yml) builds the VNC image from [Dockerfile](/data2/axgu/code/digitai_twin_create/gs_vis/docker/Dockerfile) and publishes it to GHCR on GitHub Release publish.

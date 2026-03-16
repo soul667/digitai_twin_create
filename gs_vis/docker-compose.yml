@@ -2,6 +2,8 @@ services:
   visionary-vnc:
     build:
       context: ./docker
+      args:
+        NVIDIA_DRIVER_VERSION: "${NVIDIA_DRIVER_VERSION:-575.64.03}"
     container_name: visionary-vnc
     gpus:
       - driver: nvidia
@@ -29,6 +31,7 @@ services:
       USER_LOCALES: en_US.UTF-8
       TZ: Asia/Shanghai
       VGL_DISPLAY: "${VGL_DISPLAY:-}"
+      NVIDIA_DRIVER_VERSION: "${NVIDIA_DRIVER_VERSION:-575.64.03}"
     ports:
       - "8080:8080"
       - "3000:3000"
