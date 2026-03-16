@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Local environment / logs
+.env
+*.log
+
+# Video and raw capture assets
+*.mp4
+*.MP4
+*.mov
+*.MOV
+
+# DA3 generated assets
+/da3/frames/
+/da3/output/
+/da3/output_gs/
+/da3/difix3d_runs/
+
+# 3D / export artifacts
+*.glb
+*.ply
+*.npz
+*.npy
+
+# Frontend / viewer dependencies and build output
+/gs_vis/visionary/node_modules/
+/gs_vis/visionary/.next/
+/gs_vis/visionary/dist/
+/gs_vis/visionary/build/
+
+# Temporary runtime caches
+/tmp/
