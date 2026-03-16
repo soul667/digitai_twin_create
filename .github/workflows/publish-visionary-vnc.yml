@@ -4,6 +4,18 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'gs_vis/docker/**'
+      - '.github/workflows/publish-visionary-vnc.yml'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'gs_vis/docker/**'
+      - '.github/workflows/publish-visionary-vnc.yml'
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/digitai-twin-create-visionary-vnc
@@ -49,6 +61,6 @@ jobs:
         with:
           context: ./gs_vis/docker
           file: ./gs_vis/docker/Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
