@@ -10,6 +10,8 @@ services:
         device_ids:
           - "${GPU_DEVICE:-0}"
         capabilities: [gpu]
+    tmpfs:
+      - /dev/shm:rw
     shm_size: "8gb"
     environment:
       WORKSPACE: /workspace

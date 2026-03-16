@@ -53,5 +53,3 @@ RUN chmod +x /opt/visionary/autostart-visionary.sh && \
     sed -i 's|Exec=.*|Exec=/opt/visionary/autostart-visionary.sh|' /etc/xdg/autostart/visionary.desktop
 
 EXPOSE 8080 3000
-
-USER ubuntu
