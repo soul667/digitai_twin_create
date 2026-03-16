@@ -3,6 +3,7 @@ FROM ghcr.io/selkies-project/nvidia-glx-desktop:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VISIONARY_PORT=3000
 ENV CHROME_FLAGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --enable-features=Vulkan,UnsafeWebGPU --use-vulkan --enable-unsafe-webgpu --ozone-platform=x11"
+ENV BUN_INSTALL=/opt/bun
 
 USER root
 
@@ -31,7 +32,7 @@ RUN mkdir -p /etc/apt/keyrings && \
 
 RUN curl -fsSL https://bun.sh/install | bash
 
-RUN install -m 0755 /root/.bun/bin/bun /usr/local/bin/bun
+RUN install -m 0755 /opt/bun/bin/bun /usr/local/bin/bun
 
 ENV PATH="/usr/local/bin:${PATH}"
 
