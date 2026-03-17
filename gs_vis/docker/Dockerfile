@@ -1,4 +1,4 @@
-FROM ghcr.io/selkies-project/nvidia-glx-desktop:22.04
+FROM ghcr.io/selkies-project/nvidia-egl-desktop:22.04
 
 ARG NVIDIA_DRIVER_VERSION=575.64.03
 ARG NVIDIA_DRIVER_ARCH=x86_64

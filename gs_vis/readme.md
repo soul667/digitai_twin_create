@@ -35,7 +35,7 @@ Then click `选择文件` or drag the `.ply` into the official Visionary page.
 
 ## Docker Desktop Mode
 
-To run Visionary inside a Selkies GLX remote desktop with one GPU mounted:
+To run Visionary inside a Selkies EGL remote desktop with one GPU mounted:
 
 ```shell
 ./gs_vis/run_visionary_vnc.sh
@@ -83,6 +83,8 @@ If the host NVIDIA driver version differs from the default baked image version, 
 ```shell
 NVIDIA_DRIVER_VERSION=575.64.03 ./gs_vis/run_visionary_vnc.sh
 ```
+
+The current Docker setup uses `ghcr.io/selkies-project/nvidia-egl-desktop:22.04`, which is a better fit when the host already has its own Xorg/desktop session running. It also mounts `/dev/dri` and defaults `VGL_DISPLAY=egl`.
 
 ## GitHub image publishing
 

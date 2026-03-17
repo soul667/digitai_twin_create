@@ -32,11 +32,13 @@ services:
       USER_PASSWORD: "${PASSWD:-changeme}"
       USER_LOCALES: en_US.UTF-8
       TZ: Asia/Shanghai
-      VGL_DISPLAY: "${VGL_DISPLAY:-}"
+      VGL_DISPLAY: "${VGL_DISPLAY:-egl}"
       NVIDIA_DRIVER_VERSION: "${NVIDIA_DRIVER_VERSION:-575.64.03}"
     ports:
       - "8080:8080"
       - "3000:3000"
     volumes:
       - ..:/workspace
+    devices:
+      - /dev/dri:/dev/dri
     working_dir: /workspace
